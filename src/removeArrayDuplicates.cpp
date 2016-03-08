@@ -15,11 +15,13 @@ NOTES: Don't create new array, try to change the input array.
 
 #include <stdio.h>
 
+
 int removeArrayDuplicates(int *Arr, int len)
 {
 	int index1, index2, index3;
+
 	if (Arr == NULL || len <= -1)
-		return NULL;
+		return -1;
 
 	for (index1 = 0; index1 < len; index1++)
 	{
