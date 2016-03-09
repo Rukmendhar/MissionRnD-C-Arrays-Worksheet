@@ -22,36 +22,42 @@ struct student {
 };
 
 struct student ** topKStudents(struct student *students, int len, int K) {
-	
-	int index1, index2, temp;
-	struct student *top;
 
-	
-	top = (struct student*)calloc(K, sizeof(student));
-	if(students == NULL || len <= 0||K<=0)
+	int index1, index2;
+	struct student temp;
+	struct student **top;
+	top= (struct student**)malloc(K*(sizeof(struct student)));
+
+	for (index1 = 0; index1 < K;index1++)
+		top[index1] = (struct student*)malloc(sizeof(struct student));
+
+
+	if (students == NULL || len <= 0 || K <= 0)
 		return NULL;
 
-	printf("dfd");
+	if (len < K)
+		K = len;
 
-	for (index1 = 0; index1 <len; index1++)
+
+
+	for (index1 = 0; index1 < len; index1++)
 	{
-		for (index2 = index1; index2 < len; index2++)
+		for (index2 = index1 + 1; index2 < len; index2++)
 		{
 			if (students[index1].score < students[index2].score)
 			{
-				temp = students[index1].score;
-				students[index1].score = students[index2].score;
-				students[index2].score = temp;
+				temp = students[index1];
+				students[index1] = students[index2];
+				students[index2] = temp;
+
 			}
 		}
-		
 	}
+
 	for (index1 = 0; index1 < K; index1++)
 	{
-		
-		top[index1].name = students[index1].name;
-		top[index1].score = students[index1].score;
+		*(top[index1]) = students[index1];
 	}
-	
-	return &students;
+	return top;
+
 }
